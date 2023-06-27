@@ -1,0 +1,9 @@
+# IDE
+.idea
+
+# Dependencies
+node_modules
+
+# Environment varibales
+.env*
+!.env*.example
