@@ -19,13 +19,26 @@ app.options(ALLOWED_DOMAIN, cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static('public'));
+
+app.get('/', (_, res) => {
+  res.send('Hello World');
+});
+app.get('/about*', (_, res) => {
+  res.send('About page with *');
+});
+app.get('/about/me', (_, res) => {
+  res.send('About me page');
+});
+app.get('/about/company', (_, res) => {
+  res.send('About company page');
+});
+
 app.use((_, res) => {
   res.type('application/json');
   res.status(404);
   res.send({ error: 'Not found' });
 });
-
-app.use(express.static('public'));
 
 const server = app.listen(PORT, () => {
   console.log(`Starting Express server on http://localhost:${PORT}`);

@@ -10,7 +10,8 @@
     "lint:fix": "./node_modules/.bin/eslint --fix",
     "prettier": "./node_modules/.bin/prettier --check .",
     "prettier:fix": "./node_modules/.bin/prettier --write .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
   },
   "author": "Grzegorz Kielar <grzegorz.kielar@kielniakodu.io>",
   "license": "MIT",
@@ -28,6 +29,7 @@
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "husky": "^8.0.3",
     "nodemon": "^2.0.22",
     "prettier": "2.8.8"
   },
