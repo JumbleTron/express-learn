@@ -34,7 +34,7 @@ app.get('/about/company', (_, res) => {
   res.send('About company page');
 });
 app.get('/users/:id', (req, res) => {
-  res.json({ user_id : parseInt(req.params.id) });
+  res.json({ user_id: parseInt(req.params.id) });
 });
 
 app.use((_, res) => {
