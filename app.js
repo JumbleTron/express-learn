@@ -7,6 +7,7 @@ import { logger } from './config/winston.js';
 import './config/config.js';
 import authRouter from './routes/auth.js';
 import courseRouter from './routes/courses.js';
+import { initMongDb } from './config/mongo.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -53,8 +54,11 @@ app.use((_, res) => {
   res.send({ error: 'Not found' });
 });
 
-const server = app.listen(PORT, () => {
-  console.log(`Starting Express server on http://localhost:${PORT}`);
+let server;
+initMongDb(() => {
+  server = app.listen(PORT, () => {
+    logger.info(`Starting Express server on http://localhost:${PORT}`);
+  });
 });
 
 const unexpectedErrorHandler = (error) => {

@@ -7,6 +7,9 @@ const envVarsSchema = {
       type: 'string',
       enum: ['production', 'development', 'test', 'local'],
     },
+    MONGO_URI: {
+      type: ['string'],
+    },
     ALLOWED_DOMAIN: {
       type: ['string', 'null'],
     },
