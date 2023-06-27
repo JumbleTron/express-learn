@@ -1,9 +1,12 @@
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
+import passport from 'passport';
 import { errorHandler, successHandler } from './config/morgan.js';
 import { logger } from './config/winston.js';
 import './config/config.js';
+import authRouter from './routes/auth.js';
+import courseRouter from './routes/courses.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -36,6 +39,13 @@ app.get('/about/company', (_, res) => {
 app.get('/users/:id', (req, res) => {
   res.json({ user_id: parseInt(req.params.id) });
 });
+
+app.use('/auth', authRouter);
+app.use(
+  '/api/courses',
+  passport.authenticate('jwt', { session: false }),
+  courseRouter
+);
 
 app.use((_, res) => {
   res.type('application/json');
