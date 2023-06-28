@@ -1,11 +1,11 @@
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-import passport from 'passport';
 import { envs } from './config/config.js';
 import { errorHandler, successHandler } from './config/morgan.js';
 import { logger } from './config/winston.js';
 import './config/config.js';
+import { authorization } from './middlewares/authorization.js';
 import authRouter from './routes/auth.js';
 import courseRouter from './routes/courses.js';
 import { initMongDb } from './config/mongo.js';
@@ -42,11 +42,7 @@ app.get('/users/:id', (req, res) => {
 });
 
 app.use('/auth', authRouter);
-app.use(
-  '/api/courses',
-  passport.authenticate('jwt', { session: false }),
-  courseRouter
-);
+app.use('/api/courses', authorization(), courseRouter);
 
 app.use((_, res) => {
   res.type('application/json');

@@ -17,11 +17,7 @@ passport.use(
         .passwordMatches(password)
         .then((isMatch) => {
           if (isMatch) {
-            return cb(null, {
-              id: user.id,
-              role: user.role,
-              email: user.email,
-            });
+            return cb(null, user.transform());
           }
 
           return cb(null, false);
@@ -44,7 +40,7 @@ passport.use(
     async function (jwtPayload, cb) {
       try {
         const user = await User.findById(jwtPayload.id).exec();
-        if (user) return cb(null, user);
+        if (user) return cb(null, user.transform());
 
         return cb(null, false);
       } catch (error) {

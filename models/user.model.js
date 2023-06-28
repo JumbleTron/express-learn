@@ -1,10 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-
-export const ROLE_USER = 'USER';
-export const ROLE_ADMIN = 'ADMIN';
-
-export const ALLOWED_ROLES = [ROLE_USER, ROLE_ADMIN];
+import { ALLOWED_ROLES, ROLE_USER } from '../config/role.js';
 
 const userSchema = new mongoose.Schema(
   {
@@ -29,9 +25,9 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     role: {
-      type: String,
+      type: Number,
       enum: ALLOWED_ROLES,
-      default: 'user',
+      default: ROLE_USER,
     },
   },
   {
