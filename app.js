@@ -2,6 +2,7 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import passport from 'passport';
+import { envs } from './config/config.js';
 import { errorHandler, successHandler } from './config/morgan.js';
 import { logger } from './config/winston.js';
 import './config/config.js';
@@ -10,16 +11,15 @@ import courseRouter from './routes/courses.js';
 import { initMongDb } from './config/mongo.js';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-const ALLOWED_DOMAIN = process.env.ALLOWED_DOMAIN || '*';
-if (process.env.env !== 'test') {
+const PORT = envs.port;
+if (envs.env !== 'test') {
   app.use(successHandler);
   app.use(errorHandler);
 }
 
 app.use(helmet());
 app.use(cors());
-app.options(ALLOWED_DOMAIN, cors());
+app.options(envs.security.cors, cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

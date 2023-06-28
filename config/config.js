@@ -27,3 +27,18 @@ if (!validate(process.env)) {
     `Config validation error: ${JSON.stringify(validate.errors)}`
   );
 }
+
+export const envs = {
+  env: process.env.NODE_ENV,
+  port: parseInt(process.env.PORT || 3000),
+  mongo: {
+    url: process.env.MONGO_URI,
+  },
+  security: {
+    cors: process.env.ALLOWED_DOMAIN || '*',
+  },
+};
+
+export const isDevelopment = () => {
+  return envs.env === 'local' || envs.env === 'development';
+};

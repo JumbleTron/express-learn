@@ -1,10 +1,10 @@
 import morgan from 'morgan';
+import { envs } from './config.js';
 import { logger } from './winston.js';
 
 morgan.token('message', (req, res) => res.locals.errorMessage || '');
 
-const getIpFormat = () =>
-  process.env.env === 'production' ? ':remote-addr - ' : '';
+const getIpFormat = () => (envs.env === 'production' ? ':remote-addr - ' : '');
 const successResponseFormat = `${getIpFormat()}:method :url :status - :response-time ms`;
 const errorResponseFormat = `${getIpFormat()}:method :url :status - :response-time ms - message: :message`;
 

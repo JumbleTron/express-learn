@@ -1,19 +1,19 @@
 import winston from 'winston';
+import { isDevelopment } from './config.js';
 
 const enumerateErrorFormat = winston.format((info) => {
   if (info instanceof Error) {
     Object.assign(info, { message: info.stack });
   }
+
   return info;
 });
 
 export const logger = winston.createLogger({
-  level: process.env.env === 'development' ? 'debug' : 'info',
+  level: isDevelopment() ? 'debug' : 'info',
   format: winston.format.combine(
     enumerateErrorFormat(),
-    process.env.env === 'development'
-      ? winston.format.colorize()
-      : winston.format.uncolorize(),
+    isDevelopment() ? winston.format.colorize() : winston.format.uncolorize(),
     winston.format.splat(),
     winston.format.printf(({ level, message }) => `${level}: ${message}`)
   ),
