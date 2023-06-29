@@ -1,5 +1,6 @@
-import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import mongoose from 'mongoose';
+
 import { ALLOWED_ROLES, ROLE_USER } from '../config/role.js';
 
 const userSchema = new mongoose.Schema(

@@ -1,12 +1,13 @@
 import express from 'express';
 import { ROLE_ADMIN, ROLE_USER } from '../config/role.js';
 import { authorization } from '../middlewares/authorization.js';
+import { queryParamsParser } from '../middlewares/queryParamsParser.js';
 import { validate } from '../middlewares/validation.js';
-import { postSchema } from '../schemas/courses.js';
+import { listSchema, postSchema } from '../schemas/courses.js';
 
 const courseRouter = express.Router();
 courseRouter
-  .get('/', function (req, res) {
+  .get('/', queryParamsParser(listSchema), function (req, res) {
     res.json({
       per_page: 30,
       page: 1,
