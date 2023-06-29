@@ -13,6 +13,10 @@ const courseSchema = new mongoose.Schema(
       required: true,
       format: 'YYYY-MM-DD',
     },
+    promo_price: {
+      type: String,
+      required: false,
+    },
     end_at: {
       type: Date,
       required: true,
